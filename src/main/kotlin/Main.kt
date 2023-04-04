@@ -24,9 +24,7 @@ import kotlin.random.Random
 fun main() {
     thread(start = true) {
         while (true) {
-            for (iteration in -100..Random.nextInt(-100, 100)) {
-                httpMetric.set(iteration.toDouble())
-            }
+            httpMetric.set(Random.nextDouble(-100.0, 100.0))
             Thread.sleep(1000L)
         }
     }
@@ -35,9 +33,7 @@ fun main() {
         while (true) {
             val durationTimer = pushgatewayMetric.startTimer()
             try {
-                for (iteration in -100..Random.nextInt(-100, 100)) {
-                    httpMetric.set(iteration.toDouble())
-                }
+                pushgatewayMetric.set(Random.nextDouble(-100.0, 100.0))
             } finally {
                 durationTimer.setDuration()
                 val pg = PushGateway("127.0.0.1:9091")
@@ -49,11 +45,13 @@ fun main() {
 
     embeddedServer(CIO, port = 8000) {
         install(ContentNegotiation) {
-            json(Json {
-                ignoreUnknownKeys = true
-                prettyPrint = true
-                isLenient = true
-            })
+            json(
+                Json {
+                    ignoreUnknownKeys = true
+                    prettyPrint = true
+                    isLenient = true
+                }
+            )
         }
         routing {
             get ("/-/healthy") {
