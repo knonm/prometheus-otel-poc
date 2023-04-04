@@ -17,6 +17,13 @@ services:
       - 4317:4317 # OTLP gRPC receiver
       - 4318:4318 # OTLP http receiver
       - 55679:55679 # zpages extension
+  prometheus-alertmanager:
+    image: prom/alertmanager:v0.25.0
+    command: [ --config.file=/etc/alertmanager.yml ]
+    volumes:
+      - ./config/prometheus-alertmanager/alertmanager.yml:/etc/alertmanager.yml
+    ports:
+      - 9093:9093
   prometheus:
     image: prom/prometheus:v2.43.0
     ports:
@@ -25,6 +32,8 @@ services:
       - ./config/prometheus:/etc/prometheus
     depends_on:
       otel-collector:
+        condition: service_started
+      prometheus-alertmanager:
         condition: service_started
   # References:
   # https://grafana.com/docs/grafana/latest/setup-grafana/installation/docker/

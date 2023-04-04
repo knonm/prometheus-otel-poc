@@ -4,13 +4,14 @@ global:
   evaluation_interval: 30s
   # scrape_timeout is set to the global default (10s).
 
-  external_labels:
-    monitor: codelab
-    foo: bar
-
 rule_files:
-  - "first.rules"
-  - "my/*.rules"
+  - rules.yml
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - prometheus-alertmanager:9093
 
 scrape_configs:
   - job_name: prometheus

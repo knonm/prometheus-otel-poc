@@ -16,6 +16,8 @@ dependencies {
     implementation("io.prometheus:simpleclient_pushgateway:0.16.0")
     implementation("io.ktor:ktor-server-core:2.2.4")
     implementation("io.ktor:ktor-server-cio:2.2.4")
+    implementation("io.ktor:ktor-server-content-negotiation:2.2.4")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.2.4")
     implementation("ch.qos.logback:logback-classic:1.4.6")
     testImplementation(kotlin("test"))
 }

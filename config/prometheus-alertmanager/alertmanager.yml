@@ -1,0 +1,9 @@
+global:
+  resolve_timeout: 5m
+route:
+  receiver: webhook_receiver
+receivers:
+  - name: webhook_receiver
+    webhook_configs:
+      - url: 'http://host.docker.internal:8000/webhook'
+        send_resolved: false

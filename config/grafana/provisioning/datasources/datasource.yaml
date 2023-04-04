@@ -11,3 +11,12 @@ datasources:
       manageAlerts: true
       prometheusType: Prometheus
       prometheusVersion: 2.43.0
+  - name: Alertmanager
+    type: alertmanager
+    url: http://prometheus-alertmanager:9093
+    access: proxy
+    jsonData:
+      # Valid options for implementation include mimir, cortex and prometheus
+      implementation: prometheus
+      # Whether or not Grafana should send alert instances to this Alertmanager
+      handleGrafanaManagedAlerts: false

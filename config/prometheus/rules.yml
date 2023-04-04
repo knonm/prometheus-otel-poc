@@ -1,0 +1,21 @@
+groups:
+  - name: HTTP Gauge greater than 10
+    rules:
+      - alert: HTTPGaugeGreaterThan10
+        expr: dev_knonm_http_scraped_metric{} > 10
+        for: 1s
+  - name: HTTP Gauge lesser than -10
+    rules:
+      - alert: HttpGaugeLesserThanMinus10
+        expr: dev_knonm_http_scraped_metric{} < -10
+        for: 1s
+  - name: Pushgateway Gauge greater than 10
+    rules:
+        - alert: PushgatewayGaugeGreaterThan10
+          expr: dev_knonm_pushgateway_metric{} > 10
+          for: 1s
+  - name: Pushgateway Gauge lesser than -10
+    rules:
+        - alert: PushgatewayGaugeLesserThanMinus10
+          expr: dev_knonm_pushgateway_metric{} < -10
+          for: 1s
