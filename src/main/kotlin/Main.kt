@@ -32,7 +32,6 @@ fun main() {
                 for (iteration in -100..Random.nextInt(-100, 100)) {
                     httpMetric.set(iteration.toDouble())
                 }
-                Thread.sleep(1000L)
             } finally {
                 durationTimer.setDuration()
                 val pg = PushGateway("127.0.0.1:9091")
