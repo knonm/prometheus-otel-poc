@@ -25,6 +25,3 @@ scrape_configs:
 
     static_configs:
       - targets: ["prometheus-pushgateway:9091", "otel-collector:8888", "otel-collector:8889"]
-        labels:
-          my: label
-          your: label

@@ -6,4 +6,4 @@ receivers:
   - name: webhook_receiver
     webhook_configs:
       - url: 'http://host.docker.internal:8000/webhook'
-        send_resolved: false
+        send_resolved: true

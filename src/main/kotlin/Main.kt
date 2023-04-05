@@ -25,6 +25,11 @@ fun main() {
     thread(start = true) {
         while (true) {
             httpMetric.set(Random.nextDouble(-100.0, 100.0))
+            httpLabeledMetric
+                .labels(
+                    "${Random.nextBoolean()}", "${Random.nextBoolean()}", "${Random.nextBoolean()}"
+                )
+                .set(Random.nextDouble(-100.0, 100.0))
             Thread.sleep(1000L)
         }
     }
@@ -34,6 +39,11 @@ fun main() {
             val durationTimer = pushgatewayMetric.startTimer()
             try {
                 pushgatewayMetric.set(Random.nextDouble(-100.0, 100.0))
+                pushgatewayLabeledMetric
+                    .labels(
+                        "${Random.nextBoolean()}", "${Random.nextBoolean()}", "${Random.nextBoolean()}"
+                    )
+                    .set(Random.nextDouble(-100.0, 100.0))
             } finally {
                 durationTimer.setDuration()
                 val pg = PushGateway("127.0.0.1:9091")
@@ -79,7 +89,19 @@ val httpMetric = Gauge.build()
     .help("Metric exposed over HTTP.")
     .register(httpRegistry)!!
 
+val httpLabeledMetric = Gauge.build()
+    .name("dev_knonm_http_scraped_labeled_metric")
+    .help("Metric exposed over HTTP (labeled).")
+    .labelNames("labelA", "labelB", "labelC")
+    .register(httpRegistry)!!
+
 val pushgatewayMetric = Gauge.build()
     .name("dev_knonm_pushgateway_metric")
     .help("Metric exposed over pushgateway.")
     .register(pushgatewayRegistry)!!
+
+val pushgatewayLabeledMetric = Gauge.build()
+    .name("dev_knonm_pushgateway_labeled_metric")
+    .help("Metric exposed over pushgateway (labeled).")
+    .labelNames("label1", "label2", "label3")
+    .register(httpRegistry)!!

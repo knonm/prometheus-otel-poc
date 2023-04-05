@@ -9,13 +9,29 @@ groups:
       - alert: HttpGaugeLesserThanMinus10
         expr: dev_knonm_http_scraped_metric{} < -10
         for: 1s
+  - name: HTTP labeled metric
+    rules:
+      - alert: HttpLabeledMetric
+        expr: dev_knonm_http_scraped_labeled_metric{} > 10
+        for: 1s
+        annotations:
+          summary: "Summary: labelA => '{{ $labels.labelA }}' | labelB => '{{ $labels.labelB }}' | labelC => '{{ $labels.labelC }}'"
+          description: "Description: labelA => '{{ $labels.labelA }}' | labelB => '{{ $labels.labelB }}' | labelC => '{{ $labels.labelC }}'"
   - name: Pushgateway Gauge greater than 10
     rules:
-        - alert: PushgatewayGaugeGreaterThan10
-          expr: dev_knonm_pushgateway_metric{} > 10
-          for: 1s
+      - alert: PushgatewayGaugeGreaterThan10
+        expr: dev_knonm_pushgateway_metric{} > 10
+        for: 1s
   - name: Pushgateway Gauge lesser than -10
     rules:
         - alert: PushgatewayGaugeLesserThanMinus10
           expr: dev_knonm_pushgateway_metric{} < -10
           for: 1s
+  - name: Pushgateway labeled metric
+    rules:
+      - alert: PushgatewayLabeledMetric
+        expr: dev_knonm_pushgateway_labeled_metric{} > 10
+        for: 1s
+        annotations:
+          summary: "Summary: label1 => '{{ $labels.label1 }}' | label2 => '{{ $labels.label2 }}' | label3 => '{{ $labels.label3 }}'"
+          description: "Description: label1 => '{{ $labels.label1 }}' | label2 => '{{ $labels.label2 }}' | label3 => '{{ $labels.label3 }}'"
