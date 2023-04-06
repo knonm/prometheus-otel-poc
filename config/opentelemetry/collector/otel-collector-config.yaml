@@ -1,5 +1,8 @@
 receivers:
-  # Data sources: metrics
+  otlp:
+    protocols:
+      grpc:
+      http:
   prometheus:
     config:
       scrape_configs:
@@ -9,12 +12,11 @@ receivers:
             - targets: [host.docker.internal:8000]
 
 exporters:
-  # Data sources: metrics
   prometheus:
     endpoint: otel-collector:8889
 
 service:
   pipelines:
     metrics:
-      receivers: [ prometheus ]
+      receivers: [ otlp, prometheus ]
       exporters: [ prometheus ]
